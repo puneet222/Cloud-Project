@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/quiz_model');
-mongoose.connect('mongodb://puneet:123<dbpassword>@ds151163.mlab.com:51163/quiz-app-db');
+mongoose.connect('mongodb://puneet:123@ds151163.mlab.com:51163/quiz-app-db');
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error'));
 db.once('open',function callback(){
