@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/quiz_model');
-mongoose.connect('mongodb://nik:123@ds119449.mlab.com:19449/generalquizapp');
+mongoose.connect('mongodb://localhost:27017/quiz_model');
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error'));
 db.once('open',function callback(){
@@ -25,6 +25,7 @@ var QuestionSchema = mongoose.Schema({
 
 var resultSchema = mongoose.Schema({
     u_id : String,
+    u_name : String,
     quiz_name: String,
     userResult: String,
     date:String
@@ -150,27 +151,52 @@ exports.getQuestion = function(req,res){
 exports.saveResult = function(req,res){
   var user_result = req.body.riteans_perc;
   var u_id = req.body.u_id;
+  // var u_name = req.body.u_name;
   var quiz_name = req.body.quiz_name;
     console.log(u_id+"=="+user_result);
     var myDate=new Date();
 
     //make a new collection results were all result will be saves {user_id,quiz_name,Result,date}, When result will be shown
     //through id we will get all the info of user from users collection.
-    var result_info = new Result({
-        u_id : u_id,
-        quiz_name: quiz_name,
-        userResult: user_result,
-        date:myDate
-    });
 
-    result_info.save(function(err,data){
-        if(err){
-            res.send("Upload Fail"+err);
-        }else{
-            res.send("Your Result have been saved"+data);
+    User.find({ _id : u_id },function(err,data){
+        if (err) {// ...
+            console.log('An error has occurred');
+
+            res.send('An error has occurred'+err);
+
         }
-    });//>save
-    res.send("Result Received");
+        else {
+            if(!data){
+                console.log('record not found');
+
+                res.send("error");
+
+            }else{
+               console.log("data == "+data);
+               var result_info = new Result({
+                   u_id : u_id,
+                   u_name : data[0]['u_name'],
+                   quiz_name: quiz_name,
+                   userResult: user_result,
+                   date:myDate
+               });
+               result_info.save(function(err,data){
+                   if(err){
+                       res.send("Upload Fail"+err);
+                   }else{
+                       res.send("Your Result have been saved"+data);
+                   }
+               });//>save
+               res.send("Result Received");
+                // res.send(data);
+            }//else  for data forward
+
+        }//Main else
+
+    })//FindOne funtionx;
+
+
 };
 
 exports.getUserInfo = function(req,res){
@@ -202,7 +228,7 @@ exports.getUserInfo = function(req,res){
 exports.showResult = function(req, res){
 
     var u_id = req.body.u_id;
-    Result.find({ u_id: u_id },function(err,data){
+    Result.find({},function(err,data){
         if (err) {// ...
             console.log('An error has occurred');
 
@@ -216,7 +242,7 @@ exports.showResult = function(req, res){
                 res.send("error");
 
             }else{
-                //     console.log("data == "+data);
+                    console.log("data == "+data);
                 res.send(data);
             }//else  for data forward
 

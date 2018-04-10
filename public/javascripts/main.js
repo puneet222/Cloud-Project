@@ -44,6 +44,9 @@ var sampleApp = angular.module("myApp",['ui.bootstrap'])
                  templateUrl:'views/shareResult_pg.html',
                  controller:'shareResult_pg'
              })
+             .when('/done' , {
+               templateUrl : 'views/done.html'
+             })
 
 
              .when('/error',{

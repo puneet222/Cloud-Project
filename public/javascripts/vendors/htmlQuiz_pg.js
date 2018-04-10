@@ -1,4 +1,5 @@
 sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams){
+  console.log(sessionStorage);
     var id = sessionStorage.id;
     var q_id = parseInt($routeParams.q_id,10);
     var quiz_model;
@@ -52,7 +53,7 @@ sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams)
                 //console.log(res)
                  $scope.quiz_model = res;
                  quiz_model =  $scope.quiz_model;
-
+                 console.log(quiz_model) ;
                 var next = 0;
                 $scope.current_q = quiz_model[next];
 
@@ -64,7 +65,7 @@ sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams)
                  $scope.u_ans = '';//user ans are upated in this model var
                  var ans_given = false;
                  $scope.change_q = function(state){
-
+                   console.log(next) ;
                  var next_btn=next+1;
                  var prev_btn=next-1;
 
@@ -191,6 +192,7 @@ sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams)
                     }).success(function(res,textStatus){
 
                             console.log(res);
+                            $window.location.href('');
                         }).error(
                         function(){ alert("Error");}
                     )//Error

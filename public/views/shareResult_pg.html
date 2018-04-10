@@ -4,12 +4,14 @@
         <table border="1">
             <tr>
                 <th>S.NO</th>
+                <th>SID</th>
                 <th>Quiz Name</th>
                 <th>Marks</th>
                 <th>Date</th>
             </tr>
             <tr ng-repeat="g in resultData">
                 <td>{{$index+1}}</td>
+                <td>{{g.u_name}}</td>
                 <td>{{g.quiz_name}}</td>
                 <td>{{g.userResult}}</td>
                 <td>{{g.date}}</td>

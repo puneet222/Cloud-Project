@@ -84,7 +84,7 @@ sampleApp.factory('userLogin',function($http,$location){
                             var u_id =  res._id;
 
                             sessionStorage.setItem('id',u_id);
-                            window.location = 'http://quiz-model.herokuapp.com/'
+                            window.location = 'http://localhost:3000/'
                           //location.reload('#/');
 
                             //console.log(sessionStorage.id);
