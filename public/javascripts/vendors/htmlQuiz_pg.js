@@ -192,7 +192,7 @@ sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams)
                     }).success(function(res,textStatus){
 
                             console.log(res);
-                            $window.location.href('');
+                            window.location = '/';
                         }).error(
                         function(){ alert("Error");}
                     )//Error

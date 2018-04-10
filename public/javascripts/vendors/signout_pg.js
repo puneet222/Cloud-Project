@@ -1,6 +1,6 @@
 sampleApp.controller('signout',function($scope,$location){
     sessionStorage.clear();
-    window.location = 'http://localhost:3000/'
+    window.location = '/'
 
 
     $scope.go = function (path){
