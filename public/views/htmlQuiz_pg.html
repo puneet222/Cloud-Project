@@ -11,6 +11,9 @@
            <button id="quiz_btn" class="btn btn-primary" ng-click="startQuiz()"> Start Quiz</button>
            </div><!--info_box-->
            <div ng-show="quiz_box"><!--quiz_box-->
+              <div id="timer">
+                <h3 style="color:white;">{{minutes}} : {{seconds}}</h3>
+              </div>
                <div ><!-- current_q-->
                    <p>Q:{{current_q.question}} ?</p>
                    <ul style="list-style: none;">

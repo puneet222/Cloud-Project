@@ -1,4 +1,4 @@
-sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams){
+sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams,$timeout){
   console.log(sessionStorage);
     var id = sessionStorage.id;
     var q_id = parseInt($routeParams.q_id,10);
@@ -37,11 +37,43 @@ sampleApp.controller('htmlQuiz_pg',function($scope,$location,$http,$routeParams)
         $scope.user_out = false;
     }
 
+    var timer = function(){
+      $scope.minutes = 0 ;
+      $scope.seconds = 20 ;
+      setInterval(function(){
+        if($scope.seconds == 0){
+          if($scope.minutes == 0){
+            // time finish
+            console.log("hahah time is over") ;
+          }
+          else{
+
+            $timeout(function () {
+              $scope.$apply(function() {
+                $scope.minutes = $scope.minutes - 1 ;
+                $scope.seconds = 59 ;
+              });
+            },100);
+
+          }
+        }
+        else{
+          $timeout(function () {
+            $scope.$apply(function() {
+              $scope.seconds = $scope.seconds - 1 ;
+              console.log($scope.seconds);
+            });
+          },100);
+
+        }
+      },1000)
+    }
+
     $scope.startQuiz = function(){
         $scope.quiz_box = true;
         $scope.info_box = false;
        // var q_name
-
+        timer();
 
        //Getting Data from server
         $http({
